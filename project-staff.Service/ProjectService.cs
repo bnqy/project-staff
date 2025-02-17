@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using project_staff.Contracts;
+using project_staff.Entities.Exceptions;
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
@@ -36,6 +37,11 @@ namespace project_staff.Service
 		public ProjectDto GetProject(Guid projectId, bool trackChanges)
 		{
 			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
 
 			var projectDto = this.mapper.Map<ProjectDto>(project);
 
