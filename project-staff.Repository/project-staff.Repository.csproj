@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\project-staff.Contracts\project-staff.Contracts.csproj" />
     <ProjectReference Include="..\project-staff.Entities\project-staff.Entities.csproj" />
   </ItemGroup>
 
