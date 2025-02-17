@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace project_staff.Shared.DTOs
 {
-	public record ProjectForCreationDto(
-		string Name, 
-		string CustomerCompany, 
-		string ExecutionCompany, 
-		DateTime StartDate, 
-		DateTime EndDate,
-		int Priority,
-		Guid ManagerId,
-		IEnumerable<ProjectTaskForCreationDto> Tasks);
+	public record ProjectForCreationDto : ProjectForManipulationDto
+	{
+		public IEnumerable<ProjectTaskForCreationDto>? Tasks { get; init; }
+	}
 }

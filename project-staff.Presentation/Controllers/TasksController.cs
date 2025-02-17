@@ -45,6 +45,11 @@ namespace project_staff.Presentation.Controllers
 				return BadRequest("ProjectTaskForCreationDto is null.");
 			}
 
+			if (!ModelState.IsValid)
+			{
+				return UnprocessableEntity(ModelState);
+			}
+
 			var projectTaskDto = this.serviceManager.ProjectTaskService.CreateTaskForProject(projectId, projectTaskForCreationDto, false);
 
 			return CreatedAtRoute("GetTaskForProject",  new { projectId, projectTaskDto.Id }, projectTaskDto);
@@ -65,6 +70,12 @@ namespace project_staff.Presentation.Controllers
 			{
 				return BadRequest("ProjectTaskForUpdateDto is null.");
 			}
+
+			if (!ModelState.IsValid)
+			{
+				return UnprocessableEntity(ModelState);
+			}
+
 			serviceManager.ProjectTaskService.UpdateTaskForProject(projectId, id, projectTaskForUpdateDto, false, true);
 
 			return NoContent();

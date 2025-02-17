@@ -44,6 +44,11 @@ namespace project_staff.Presentation.Controllers
 				return BadRequest("ProjectForCreationDto is null.");
 			}
 
+			if (!ModelState.IsValid)
+			{
+				return UnprocessableEntity(ModelState);
+			}
+
 			var CreatedProjectDto = this.serviceManager.ProjectService.CreateProject(projectForCreationDto);
 
 			return CreatedAtRoute("ProjectById", new { id = CreatedProjectDto.Id}, CreatedProjectDto);
@@ -63,6 +68,11 @@ namespace project_staff.Presentation.Controllers
 			if (projectForUpdateDto is null)
 			{
 				return BadRequest("ProjectForUpdateDto is null.");
+			}
+
+			if (!ModelState.IsValid)
+			{
+				return UnprocessableEntity(ModelState);
 			}
 
 			this.serviceManager.ProjectService.UpdateProject(id, projectForUpdateDto, true);

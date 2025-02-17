@@ -6,11 +6,5 @@ using System.Threading.Tasks;
 
 namespace project_staff.Shared.DTOs
 {
-	public record ProjectTaskForUpdateDto(
-		string Name,
-		Guid AuthorId,
-		Guid ExecutorId,
-		project_staff.Entities.Models.TaskStatus Status,
-		string Comment,
-		int Priority);
+	public record ProjectTaskForUpdateDto : ProjectTaskForManipulationDto;
 }
