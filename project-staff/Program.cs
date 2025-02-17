@@ -15,7 +15,12 @@ builder.Services.ConfigServiceManager();
 builder.Services.ConfigSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(config =>
+{
+	config.RespectBrowserAcceptHeader = true;
+	config.ReturnHttpNotAcceptable = true;
+})
+	.AddXmlDataContractSerializerFormatters()
 	.AddApplicationPart(typeof(project_staff.Presentation.AssemblyReference).Assembly); //To use Controllers in Presentation project.
 
 

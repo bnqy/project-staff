@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace project_staff.Shared.DTOs
 {
-	public record ProjectTaskDto(Guid Id,
-		string Name,
-		Guid AuthorId,
-		Guid ExecutorId,
-		project_staff.Entities.Models.TaskStatus Status,
-		string Comment,
-		int Priority);
+	public record ProjectTaskDto
+	{
+		public Guid Id { get; init; }
+		public string? Name { get; init; }
+		public Guid AuthorId { get; init; }
+		public Guid ExecutorId { get; init; }
+		public project_staff.Entities.Models.TaskStatus Status { get; init; }
+		public string? Comment { get; init; }
+		public int Priority { get; init; }
+	}
 }
