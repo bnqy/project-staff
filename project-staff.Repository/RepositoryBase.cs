@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace project_staff.Repository
 {
-	public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+	public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
 	{
 		private readonly RepositoryContext repositoryContext;
 
