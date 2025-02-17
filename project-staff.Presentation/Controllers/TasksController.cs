@@ -27,5 +27,13 @@ namespace project_staff.Presentation.Controllers
 
 			return Ok(tasks);
 		}
+
+		[HttpGet("{id:guid}")]
+		public IActionResult GetTaskForProject(Guid projectId, Guid id)
+		{
+			var task = this.serviceManager.ProjectTaskService.GetTask(projectId, id, false);
+
+			return Ok(task);
+		}
 	}
 }

@@ -15,6 +15,12 @@ namespace project_staff.Repository
 		{
 		}
 
+		public ProjectTask GetTask(Guid projectId, Guid id, bool trackChanges)
+		{
+			return FindByCondition(e => e.ProjectId.Equals(projectId) && e.Id.Equals(id),trackChanges)
+				.SingleOrDefault();
+		}
+
 		public IEnumerable<ProjectTask> GetTasks(Guid projectId, bool trackChanges)
 		{
 			return FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges)

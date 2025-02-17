@@ -24,6 +24,27 @@ namespace project_staff.Service
 			this.mapper = mapper;
 		}
 
+		public ProjectTaskDto GetTask(Guid projectId, Guid id, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+			
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			var task = this.repositoryManager.ProjectTask.GetTask(projectId, id, trackChanges);
+
+			if (task is null)
+			{
+				throw new TaskNotFoundException(id);
+			}
+
+			var taskDto = this.mapper.Map<ProjectTaskDto>(task);
+
+			return taskDto;
+		}
+
 		public IEnumerable<ProjectTaskDto> GetTasks(Guid projectId, bool trackChanges)
 		{
 			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);

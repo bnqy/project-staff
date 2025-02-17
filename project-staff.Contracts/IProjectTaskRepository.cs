@@ -10,5 +10,6 @@ namespace project_staff.Contracts
 	public interface IProjectTaskRepository
 	{
 		IEnumerable<ProjectTask> GetTasks(Guid projectId, bool trackChanges);
+		ProjectTask GetTask(Guid projectId, Guid id, bool trackChanges);
 	}
 }
