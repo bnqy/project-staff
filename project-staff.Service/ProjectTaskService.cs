@@ -4,6 +4,7 @@ using project_staff.Entities.Exceptions;
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace project_staff.Service
 			return taskDto;
 		}
 
-		public async Task<IEnumerable<ProjectTaskDto>> GetTasksAsync(Guid projectId, bool trackChanges)
+		public async Task<(IEnumerable<ProjectTaskDto> projectTaskDtos, MetaData metaData)> GetTasksAsync(Guid projectId, TaskParameters taskParameters, bool trackChanges)
 		{
 			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
 
@@ -94,11 +95,11 @@ namespace project_staff.Service
 				throw new ProjectNotFoundException(projectId);
 			}
 
-			var tasks = await this.repositoryManager.ProjectTask.GetTasksAsync(projectId, trackChanges);
+			var tasks = await this.repositoryManager.ProjectTask.GetTasksAsync(projectId, taskParameters, trackChanges);
 
-			var tasksDto = this.mapper.Map<IEnumerable<ProjectTaskDto>>(tasks);
+			var tasksDtos = this.mapper.Map<IEnumerable<ProjectTaskDto>>(tasks);
 
-			return tasksDto;
+			return (tasksDtos, tasks.MetaData);
 		}
 
 		public async Task UpdateTaskForProjectAsync(Guid projectId, Guid id, ProjectTaskForUpdateDto projectTaskForUpdateDto, bool projectTrackChanges, bool taskTrackChanges)

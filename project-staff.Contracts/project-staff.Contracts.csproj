@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\project-staff.Entities\project-staff.Entities.csproj" />
+    <ProjectReference Include="..\project-staff.Shared\project-staff.Shared.csproj" />
   </ItemGroup>
 
 </Project>

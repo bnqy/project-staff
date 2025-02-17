@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using project_staff.Contracts;
 using project_staff.Entities.Models;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -34,11 +35,14 @@ namespace project_staff.Repository
 				.SingleOrDefaultAsync();
 		}
 
-		public async Task<IEnumerable<ProjectTask>> GetTasksAsync(Guid projectId, bool trackChanges)
+		public async Task<PagedList<ProjectTask>> GetTasksAsync(Guid projectId, TaskParameters taskParameters, bool trackChanges)
 		{
-			return await FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges)
+			var projects = await FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges)
 				.OrderBy(t => t.Name)
 				.ToListAsync();
+
+			return PagedList<ProjectTask>
+				.ToPagedList(projects, taskParameters.PageNumber, taskParameters.PageSize);
 		}
 	}
 }

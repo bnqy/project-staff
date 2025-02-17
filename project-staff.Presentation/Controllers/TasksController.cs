@@ -2,10 +2,12 @@
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace project_staff.Presentation.Controllers
@@ -22,11 +24,14 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetTasksForProject(Guid projectId)
+		public async Task<IActionResult> GetTasksForProject(Guid projectId,
+			[FromQuery] TaskParameters taskParameters)
 		{
-			var tasks = await this.serviceManager.ProjectTaskService.GetTasksAsync(projectId, false);
+			var pagedTasks = await this.serviceManager.ProjectTaskService.GetTasksAsync(projectId, taskParameters, false);
 
-			return Ok(tasks);
+			Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedTasks.metaData));
+
+			return Ok(pagedTasks.projectTaskDtos);
 		}
 
 		[HttpGet("{id:guid}", Name = "GetTaskForProject")]

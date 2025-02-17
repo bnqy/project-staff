@@ -24,7 +24,7 @@ namespace project_staff.Extensions
 				{
 					builder.AllowAnyOrigin()
 					.AllowAnyMethod()
-					.AllowAnyHeader();
+					.AllowAnyHeader().WithExposedHeaders("X-Pagination");
 				}) ;
 			});
 		}
