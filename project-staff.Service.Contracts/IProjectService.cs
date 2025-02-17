@@ -1,4 +1,5 @@
 ﻿using project_staff.Entities.Models;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace project_staff.Service.Contracts
 {
 	public interface IProjectService
 	{
-		IEnumerable<Project> GetAllProjects(bool trackChanges);
+		IEnumerable<ProjectDto> GetAllProjects(bool trackChanges);
 	}
 }

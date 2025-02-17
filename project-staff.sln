@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff", "project-staff\project-staff.csproj", "{50AB8B1E-2385-4F15-B737-B1102928E0CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff", "project-staff\project-staff.csproj", "{50AB8B1E-2385-4F15-B737-B1102928E0CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Contracts", "project-staff.Contracts\project-staff.Contracts.csproj", "{0ACD98B8-C295-4073-AA69-AC76B5DCEC77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Contracts", "project-staff.Contracts\project-staff.Contracts.csproj", "{0ACD98B8-C295-4073-AA69-AC76B5DCEC77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.LoggerService", "project-staff.LoggerService\project-staff.LoggerService.csproj", "{9EFD6A6B-1AC6-4E18-937D-0521501AAF6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.LoggerService", "project-staff.LoggerService\project-staff.LoggerService.csproj", "{9EFD6A6B-1AC6-4E18-937D-0521501AAF6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Entities", "project-staff.Entities\project-staff.Entities.csproj", "{F03289E2-9339-41DE-8A9B-7ABC571886B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Entities", "project-staff.Entities\project-staff.Entities.csproj", "{F03289E2-9339-41DE-8A9B-7ABC571886B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Repository", "project-staff.Repository\project-staff.Repository.csproj", "{A1333F66-5125-440F-A586-70D326E9E691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Repository", "project-staff.Repository\project-staff.Repository.csproj", "{A1333F66-5125-440F-A586-70D326E9E691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Service.Contracts", "project-staff.Service.Contracts\project-staff.Service.Contracts.csproj", "{F8FD89D6-8E06-4E8B-B0EC-E3804B8F07E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Service.Contracts", "project-staff.Service.Contracts\project-staff.Service.Contracts.csproj", "{F8FD89D6-8E06-4E8B-B0EC-E3804B8F07E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Service", "project-staff.Service\project-staff.Service.csproj", "{0A5C8921-21DA-4168-B9EF-7E5FC0987360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Service", "project-staff.Service\project-staff.Service.csproj", "{0A5C8921-21DA-4168-B9EF-7E5FC0987360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Presentation", "project-staff.Presentation\project-staff.Presentation.csproj", "{B29AD136-9929-4758-A2FA-3DC982354D0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "project-staff.Presentation", "project-staff.Presentation\project-staff.Presentation.csproj", "{B29AD136-9929-4758-A2FA-3DC982354D0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "project-staff.Shared", "project-staff.Shared\project-staff.Shared.csproj", "{E896E990-B460-4F84-9D04-0FCC6EA07B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{B29AD136-9929-4758-A2FA-3DC982354D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B29AD136-9929-4758-A2FA-3DC982354D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B29AD136-9929-4758-A2FA-3DC982354D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E896E990-B460-4F84-9D04-0FCC6EA07B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E896E990-B460-4F84-9D04-0FCC6EA07B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E896E990-B460-4F84-9D04-0FCC6EA07B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E896E990-B460-4F84-9D04-0FCC6EA07B95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

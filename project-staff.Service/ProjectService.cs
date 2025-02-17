@@ -1,6 +1,8 @@
-﻿using project_staff.Contracts;
+﻿using AutoMapper;
+using project_staff.Contracts;
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +15,24 @@ namespace project_staff.Service
 	{
 		private readonly IRepositoryManager repositoryManager;
 		private readonly ILoggerManager loggerManager;
+		private readonly IMapper mapper;
 
-		public ProjectService(IRepositoryManager repositoryManager, ILoggerManager loggerManager)
+		public ProjectService(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
 		{
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
+			this.mapper = mapper;
 		}
 
-		public IEnumerable<Project> GetAllProjects(bool trackChanges)
+		public IEnumerable<ProjectDto> GetAllProjects(bool trackChanges)
 		{
 			try
 			{
 				var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);
 
-				return projects;
+				var projectsDto = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
+
+				return projectsDto;
 			}
 			catch (Exception ex)
 			{

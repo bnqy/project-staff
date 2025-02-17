@@ -7,3 +7,4 @@ Microsoft.EntityFrameworkCore 8.0.13
 Microsoft.EntityFrameworkCore.SqlServer 8.0.13
 Microsoft.EntityFrameworkCore.Tools 8.0.13
 Microsoft.AspNetCore.Mvc.Core 2.3.0
+AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1

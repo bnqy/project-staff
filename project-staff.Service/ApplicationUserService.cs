@@ -1,4 +1,5 @@
-﻿using project_staff.Contracts;
+﻿using AutoMapper;
+using project_staff.Contracts;
 using project_staff.Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -12,11 +13,13 @@ namespace project_staff.Service
 	{
 		private readonly IRepositoryManager repositoryManager;
 		private readonly ILoggerManager loggerManager;
+		private readonly IMapper mapper;
 
-		public ApplicationUserService(IRepositoryManager repositoryManager, ILoggerManager loggerManager)
+		public ApplicationUserService(IRepositoryManager repositoryManager, ILoggerManager loggerManager, IMapper mapper)
 		{
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
+			this.mapper = mapper;
 		}
 	}
 }

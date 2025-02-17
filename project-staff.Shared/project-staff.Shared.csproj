@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>project_staff.Service.Contracts</RootNamespace>
+    <RootNamespace>project_staff.Shared</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\project-staff.Shared\project-staff.Shared.csproj" />
+    <ProjectReference Include="..\project-staff.Entities\project-staff.Entities.csproj" />
   </ItemGroup>
 
 </Project>
