@@ -2,6 +2,8 @@
 using project_staff.Contracts;
 using project_staff.LoggerService;
 using project_staff.Repository;
+using project_staff.Service.Contracts;
+using project_staff.Service;
 
 namespace project_staff.Extensions
 {
@@ -53,6 +55,15 @@ namespace project_staff.Extensions
 		public static void ConfigSqlContext(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+		}
+
+		/// <summary>
+		/// Adds Service Manager to the IoC.
+		/// </summary>
+		/// <param name="services">IServiceCollection type.</param>
+		public static void ConfigServiceManager(this IServiceCollection services)
+		{
+			services.AddScoped<IServiceManager, ServiceManager>();
 		}
 	}
 }
