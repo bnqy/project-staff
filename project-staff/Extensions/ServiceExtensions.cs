@@ -1,4 +1,5 @@
-﻿using project_staff.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using project_staff.Contracts;
 using project_staff.LoggerService;
 using project_staff.Repository;
 
@@ -42,6 +43,16 @@ namespace project_staff.Extensions
 		public static void ConfigRepositoryManager(this IServiceCollection services)
 		{
 			services.AddScoped<IRepositoryManager, RepositoryManager>();
+		}
+
+		/// <summary>
+		/// Registers DbContext at Runtime.
+		/// </summary>
+		/// <param name="services">IServiceCollection type.</param>
+		/// <param name="configuration">IConfiguration type.</param>
+		public static void ConfigSqlContext(this IServiceCollection services, IConfiguration configuration)
+		{
+			services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
 		}
 	}
 }
