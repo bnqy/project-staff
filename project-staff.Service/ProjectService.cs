@@ -26,20 +26,11 @@ namespace project_staff.Service
 
 		public IEnumerable<ProjectDto> GetAllProjects(bool trackChanges)
 		{
-			try
-			{
-				var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);
-
-				var projectsDto = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
-
-				return projectsDto;
-			}
-			catch (Exception ex)
-			{
-				loggerManager.LogError($"Something went wrong in the { nameof(GetAllProjects)} service method {ex}"); 
-		    
-				throw;
-			}
+			var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);
+				
+			var projectsDto = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
+				
+			return projectsDto;
 		}
 	}
 }

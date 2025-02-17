@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
+using project_staff.Contracts;
 using project_staff.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,9 +27,12 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigExceptionHandler(logger);
+
 if (app.Environment.IsDevelopment())
 {
-	app.UseDeveloperExceptionPage();
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }

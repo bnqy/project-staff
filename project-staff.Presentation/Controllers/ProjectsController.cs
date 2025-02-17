@@ -22,16 +22,9 @@ namespace project_staff.Presentation.Controllers
 		[HttpGet]
 		public IActionResult GetProjects()
 		{
-			try
-			{
-				var projects = this.serviceManager.ProjectService.GetAllProjects(false);
+			var projects = this.serviceManager.ProjectService.GetAllProjects(false);
 
-				return Ok(projects);
-			}
-			catch
-			{
-				return StatusCode(500, "Internal server error");
-			}
+			return Ok(projects);
 		}
 	}
 }
