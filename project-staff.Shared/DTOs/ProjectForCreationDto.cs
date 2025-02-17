@@ -13,5 +13,6 @@ namespace project_staff.Shared.DTOs
 		DateTime StartDate, 
 		DateTime EndDate,
 		int Priority,
-		Guid ManagerId);
+		Guid ManagerId,
+		IEnumerable<ProjectTaskForCreationDto> Tasks);
 }
