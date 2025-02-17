@@ -13,5 +13,6 @@ namespace project_staff.Service.Contracts
 		ProjectTaskDto GetTask(Guid projectId, Guid id, bool trackChanges);
 		ProjectTaskDto CreateTaskForProject(Guid projectId, ProjectTaskForCreationDto projectTaskForCreationDto, bool trackChanges);
 		void DeleteTaskForProject(Guid projectId, Guid id, bool trackChanges);
+		void UpdateTaskForProject(Guid projectId, Guid id, ProjectTaskForUpdateDto projectTaskForUpdateDto, bool projectTrackChanges, bool taskTrackChanges);
 	}
 }

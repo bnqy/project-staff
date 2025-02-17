@@ -57,5 +57,17 @@ namespace project_staff.Presentation.Controllers
 
 			return NoContent();
 		}
+
+		[HttpPut("{id:guid}")]
+		public IActionResult UpdateTaskForProject(Guid projectId, Guid id, [FromBody] ProjectTaskForUpdateDto projectTaskForUpdateDto)
+		{
+			if (projectTaskForUpdateDto is null)
+			{
+				return BadRequest("ProjectTaskForUpdateDto is null.");
+			}
+			serviceManager.ProjectTaskService.UpdateTaskForProject(projectId, id, projectTaskForUpdateDto, false, true);
+
+			return NoContent();
+		}
 	}
 }

@@ -13,6 +13,7 @@ namespace project_staff
 			CreateMap<ApplicationUser, ApplicationUserDto>();
 			CreateMap<ProjectForCreationDto, Project>();
 			CreateMap<ProjectTaskForCreationDto, ProjectTask>();
+			CreateMap<ProjectTaskForUpdateDto, ProjectTask>();
 		}
 	}
 }

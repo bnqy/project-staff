@@ -100,5 +100,25 @@ namespace project_staff.Service
 
 			return tasksDto;
 		}
+
+		public void UpdateTaskForProject(Guid projectId, Guid id, ProjectTaskForUpdateDto projectTaskForUpdateDto, bool projectTrackChanges, bool taskTrackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, projectTrackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			var task = this.repositoryManager.ProjectTask.GetTask(projectId, id, taskTrackChanges);
+
+			if (task is null)
+			{
+				throw new TaskNotFoundException(id);
+			}
+
+			this.mapper.Map(projectTaskForUpdateDto, task);
+			this.repositoryManager.Save();
+		}
 	}
 }
