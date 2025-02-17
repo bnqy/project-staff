@@ -15,8 +15,4 @@
     <ProjectReference Include="..\project-staff.Entities\project-staff.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
-
 </Project>

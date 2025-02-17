@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using project_staff.Repository;
 
@@ -11,9 +12,11 @@ using project_staff.Repository;
 namespace project_staff.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20250217075956_InitialData")]
+    partial class InitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,18 +38,6 @@ namespace project_staff.Migrations
                     b.HasIndex("ProjectsId");
 
                     b.ToTable("ProjectEmployees", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeesId = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
-                            ProjectsId = new Guid("d97e8cfc-bc6f-4f94-bc0c-68fcb3c6362b")
-                        },
-                        new
-                        {
-                            EmployeesId = new Guid("fa5bb702-8b95-4fa9-9f55-60cc62d3b159"),
-                            ProjectsId = new Guid("d97e8cfc-bc6f-4f94-bc0c-68fcb3c6362b")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -261,7 +252,7 @@ namespace project_staff.Migrations
                         {
                             Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f79d5f27-68e7-4f87-8cfc-0053b681e966",
+                            ConcurrencyStamp = "909ba067-e89f-42b8-99b7-8ec8bf965abc",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -272,7 +263,7 @@ namespace project_staff.Migrations
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEHXz...",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fa96cd60-61e7-40c2-994b-66c2170df6ba",
+                            SecurityStamp = "8cc766e8-e62b-40c3-9e62-5bfb68112d13",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
@@ -280,7 +271,7 @@ namespace project_staff.Migrations
                         {
                             Id = new Guid("fa5bb702-8b95-4fa9-9f55-60cc62d3b159"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "88db8975-ca39-4262-bdbe-1bae4b16d8f8",
+                            ConcurrencyStamp = "e7863294-775c-4973-8ea8-cbdf8593173e",
                             Email = "employee@example.com",
                             EmailConfirmed = true,
                             FirstName = "Kyrgyz",
@@ -291,7 +282,7 @@ namespace project_staff.Migrations
                             NormalizedUserName = "EMPLOYEE@EXAMPLE.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEHXz...",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "48b1bc86-cb18-4564-b6a0-eac6d044f8da",
+                            SecurityStamp = "77c95c6c-d3b7-465e-b3a6-9ce34b39f93b",
                             TwoFactorEnabled = false,
                             UserName = "employee@example.com"
                         });
@@ -339,12 +330,12 @@ namespace project_staff.Migrations
                         {
                             Id = new Guid("d97e8cfc-bc6f-4f94-bc0c-68fcb3c6362b"),
                             CustomerCompany = "Kyrgyz Innovations",
-                            EndDate = new DateTime(2025, 8, 17, 8, 10, 9, 167, DateTimeKind.Utc).AddTicks(8086),
+                            EndDate = new DateTime(2025, 8, 17, 7, 59, 54, 691, DateTimeKind.Utc).AddTicks(9579),
                             ExecutionCompany = "Turkish Tech",
                             ManagerId = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
                             Name = "Smart City AI",
                             Priority = 1,
-                            StartDate = new DateTime(2025, 2, 17, 8, 10, 9, 167, DateTimeKind.Utc).AddTicks(8083)
+                            StartDate = new DateTime(2025, 2, 17, 7, 59, 54, 691, DateTimeKind.Utc).AddTicks(9576)
                         });
                 });
 

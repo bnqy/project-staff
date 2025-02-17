@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using project_staff.Entities.Models;
+using project_staff.Repository.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,10 @@ namespace project_staff.Repository
 				.WithMany(u => u.ExecutedTasks)
 				.HasForeignKey(t => t.ExecutorId)
 				.OnDelete(DeleteBehavior.Restrict);
+
+			builder.ApplyConfiguration(new ApplicationUserConfiguration());
+			builder.ApplyConfiguration(new ProjectConfiguration());
+			builder.ApplyConfiguration(new ProjectTaskConfiguration());
 		}
 
 	}
