@@ -13,5 +13,12 @@ namespace project_staff.Repository
 		public ProjectRepository(RepositoryContext repositoryContext) : base(repositoryContext)
 		{
 		}
+
+		public IEnumerable<Project> GetAllProjects(bool trackChanges)
+		{
+			return FindAll(trackChanges)
+				.OrderBy(p => p.Name)
+				.ToList();
+		}
 	}
 }

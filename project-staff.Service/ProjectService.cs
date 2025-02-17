@@ -1,4 +1,5 @@
 ﻿using project_staff.Contracts;
+using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,22 @@ namespace project_staff.Service
 		{
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
+		}
+
+		public IEnumerable<Project> GetAllProjects(bool trackChanges)
+		{
+			try
+			{
+				var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);
+
+				return projects;
+			}
+			catch (Exception ex)
+			{
+				loggerManager.LogError($"Something went wrong in the { nameof(GetAllProjects)} service method {ex}"); 
+		    
+				throw;
+			}
 		}
 	}
 }
