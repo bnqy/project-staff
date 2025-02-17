@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using project_staff.Contracts;
+using project_staff.Entities.Exceptions;
 using project_staff.Service.Contracts;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,22 @@ namespace project_staff.Service
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
 			this.mapper = mapper;
+		}
+
+		public IEnumerable<ProjectTaskDto> GetTasks(Guid projectId, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			var tasks = this.repositoryManager.ProjectTask.GetTasks(projectId, trackChanges);
+
+			var tasksDto = this.mapper.Map<IEnumerable<ProjectTaskDto>>(tasks);
+
+			return tasksDto;
 		}
 	}
 }
