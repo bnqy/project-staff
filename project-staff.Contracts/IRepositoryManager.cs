@@ -11,6 +11,6 @@ namespace project_staff.Contracts
 		IApplicationUserRepository ApplicationUser { get; }
 		IProjectRepository Project { get; }
 		IProjectTaskRepository ProjectTask { get; }
-		void Save();
+		Task SaveAsync();
 	}
 }

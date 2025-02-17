@@ -28,9 +28,9 @@ namespace project_staff.Repository
 
 		public IProjectTaskRepository ProjectTask => this.projectTaskRepository.Value;
 
-		public void Save()
+		public async Task SaveAsync()
 		{
-			this.repositoryContext.SaveChanges();
+			await this.repositoryContext.SaveChangesAsync();
 		}
 	}
 }

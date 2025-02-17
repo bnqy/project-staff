@@ -9,8 +9,8 @@ namespace project_staff.Contracts
 {
 	public interface IProjectTaskRepository
 	{
-		IEnumerable<ProjectTask> GetTasks(Guid projectId, bool trackChanges);
-		ProjectTask GetTask(Guid projectId, Guid id, bool trackChanges);
+		Task<IEnumerable<ProjectTask>> GetTasksAsync(Guid projectId, bool trackChanges);
+		Task<ProjectTask> GetTaskAsync(Guid projectId, Guid id, bool trackChanges);
 		void CreateTaskForProject(Guid projectId, ProjectTask projectTask);
 		void DeleteTask(ProjectTask projectTask);
 	}

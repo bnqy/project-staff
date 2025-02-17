@@ -25,21 +25,21 @@ namespace project_staff.Service
 			this.mapper = mapper;
 		}
 
-		public ProjectDto CreateProject(ProjectForCreationDto projectForCreationDto)
+		public async Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto)
 		{
 			var project = this.mapper.Map<Project>(projectForCreationDto);
 
 			this.repositoryManager.Project.CreateProject(project);
-			this.repositoryManager.Save();
+			await this.repositoryManager.SaveAsync();
 
 			var projectDto = this.mapper.Map<ProjectDto>(project);
 
 			return projectDto;
 		}
 
-		public void DeleteProject(Guid projectId, bool trackChanges)
+		public async Task DeleteProjectAsync(Guid projectId, bool trackChanges)
 		{
-			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
 
 			if (project is null)
 			{
@@ -47,21 +47,21 @@ namespace project_staff.Service
 			}
 
 			this.repositoryManager.Project.DeleteProject(project);
-			this.repositoryManager.Save();
+			await this.repositoryManager.SaveAsync();
 		}
 
-		public IEnumerable<ProjectDto> GetAllProjects(bool trackChanges)
+		public async Task<IEnumerable<ProjectDto>> GetAllProjectsAsync(bool trackChanges)
 		{
-			var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);
+			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(trackChanges);
 				
 			var projectsDto = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
 				
 			return projectsDto;
 		}
 
-		public ProjectDto GetProject(Guid projectId, bool trackChanges)
+		public async Task<ProjectDto> GetProjectAsync(Guid projectId, bool trackChanges)
 		{
-			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
 
 			if (project is null)
 			{
@@ -73,9 +73,9 @@ namespace project_staff.Service
 			return projectDto;
 		}
 
-		public void UpdateProject(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
+		public async Task UpdateProjectAsync(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
 		{
-			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
 
 			if (project is null)
 			{
@@ -83,7 +83,7 @@ namespace project_staff.Service
 			}
 
 			this.mapper.Map(projectForUpdateDto, project);
-			this.repositoryManager.Save();
+			await this.repositoryManager.SaveAsync();
 		}
 	}
 }

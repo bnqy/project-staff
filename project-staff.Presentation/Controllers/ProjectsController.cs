@@ -21,23 +21,23 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult GetProjects()
+		public async Task<IActionResult> GetProjects()
 		{
-			var projects = this.serviceManager.ProjectService.GetAllProjects(false);
+			var projects = await this.serviceManager.ProjectService.GetAllProjectsAsync(false);
 
 			return Ok(projects);
 		}
 
 		[HttpGet("{id:guid}", Name = "ProjectById")]
-		public IActionResult GetProject(Guid id)
+		public async Task<IActionResult> GetProject(Guid id)
 		{
-			var project = this.serviceManager.ProjectService.GetProject(id, false);
+			var project = await this.serviceManager.ProjectService.GetProjectAsync(id, false);
 
 			return Ok(project);
 		}
 
 		[HttpPost]
-		public IActionResult CreateProject([FromBody] ProjectForCreationDto projectForCreationDto)
+		public async Task<IActionResult> CreateProject([FromBody] ProjectForCreationDto projectForCreationDto)
 		{
 			if (projectForCreationDto is null)
 			{
@@ -49,21 +49,21 @@ namespace project_staff.Presentation.Controllers
 				return UnprocessableEntity(ModelState);
 			}
 
-			var CreatedProjectDto = this.serviceManager.ProjectService.CreateProject(projectForCreationDto);
+			var CreatedProjectDto = await this.serviceManager.ProjectService.CreateProjectAsync(projectForCreationDto);
 
 			return CreatedAtRoute("ProjectById", new { id = CreatedProjectDto.Id}, CreatedProjectDto);
 		}
 
 		[HttpDelete("{id:guid}")]
-		public IActionResult DeleteProject(Guid id)
+		public async Task<IActionResult> DeleteProject(Guid id)
 		{
-			this.serviceManager.ProjectService.DeleteProject(id, false);
+			await this.serviceManager.ProjectService.DeleteProjectAsync(id, false);
 
 			return NoContent();
 		}
 
 		[HttpPut("{id:guid}")]
-		public IActionResult UpdateProject(Guid id, [FromBody] ProjectForUpdateDto projectForUpdateDto)
+		public async Task<IActionResult> UpdateProject(Guid id, [FromBody] ProjectForUpdateDto projectForUpdateDto)
 		{
 			if (projectForUpdateDto is null)
 			{
@@ -75,7 +75,7 @@ namespace project_staff.Presentation.Controllers
 				return UnprocessableEntity(ModelState);
 			}
 
-			this.serviceManager.ProjectService.UpdateProject(id, projectForUpdateDto, true);
+			await this.serviceManager.ProjectService.UpdateProjectAsync(id, projectForUpdateDto, true);
 
 			return NoContent();
 		}

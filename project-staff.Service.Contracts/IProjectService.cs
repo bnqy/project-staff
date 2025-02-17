@@ -10,10 +10,10 @@ namespace project_staff.Service.Contracts
 {
 	public interface IProjectService
 	{
-		IEnumerable<ProjectDto> GetAllProjects(bool trackChanges);
-		ProjectDto GetProject(Guid projectId, bool trackChanges);
-		ProjectDto CreateProject(ProjectForCreationDto projectForCreationDto);
-		void DeleteProject(Guid projectId, bool trackChanges);
-		void UpdateProject(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges);
+		Task<IEnumerable<ProjectDto>> GetAllProjectsAsync(bool trackChanges);
+		Task<ProjectDto> GetProjectAsync(Guid projectId, bool trackChanges);
+		Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto);
+		Task DeleteProjectAsync(Guid projectId, bool trackChanges);
+		Task UpdateProjectAsync(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges);
 	}
 }

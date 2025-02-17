@@ -1,4 +1,5 @@
-﻿using project_staff.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using project_staff.Contracts;
 using project_staff.Entities.Models;
 using System;
 using System.Collections.Generic;
@@ -25,17 +26,17 @@ namespace project_staff.Repository
 			Delete(project);
 		}
 
-		public IEnumerable<Project> GetAllProjects(bool trackChanges)
+		public async Task<IEnumerable<Project>> GetAllProjectsAsync(bool trackChanges)
 		{
-			return FindAll(trackChanges)
+			return await FindAll(trackChanges)
 				.OrderBy(p => p.Name)
-				.ToList();
+				.ToListAsync();
 		}
 
-		public Project GetProject(Guid projectId, bool trackChanges)
+		public async Task<Project> GetProjectAsync(Guid projectId, bool trackChanges)
 		{
-			return FindByCondition(p => p.Id.Equals(projectId), trackChanges)
-				.SingleOrDefault();
+			return await FindByCondition(p => p.Id.Equals(projectId), trackChanges)
+				.SingleOrDefaultAsync();
 		}
 	}
 }

@@ -22,23 +22,23 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult GetTasksForProject(Guid projectId)
+		public async Task<IActionResult> GetTasksForProject(Guid projectId)
 		{
-			var tasks = this.serviceManager.ProjectTaskService.GetTasks(projectId, false);
+			var tasks = await this.serviceManager.ProjectTaskService.GetTasksAsync(projectId, false);
 
 			return Ok(tasks);
 		}
 
 		[HttpGet("{id:guid}", Name = "GetTaskForProject")]
-		public IActionResult GetTaskForProject(Guid projectId, Guid id)
+		public async Task<IActionResult> GetTaskForProject(Guid projectId, Guid id)
 		{
-			var task = this.serviceManager.ProjectTaskService.GetTask(projectId, id, false);
+			var task = await this.serviceManager.ProjectTaskService.GetTaskAsync(projectId, id, false);
 
 			return Ok(task);
 		}
 
 		[HttpPost]
-		public IActionResult CreateTaskForProject(Guid projectId, [FromBody] ProjectTaskForCreationDto projectTaskForCreationDto)
+		public async Task<IActionResult> CreateTaskForProject(Guid projectId, [FromBody] ProjectTaskForCreationDto projectTaskForCreationDto)
 		{
 			if (projectTaskForCreationDto is null)
 			{
@@ -50,21 +50,21 @@ namespace project_staff.Presentation.Controllers
 				return UnprocessableEntity(ModelState);
 			}
 
-			var projectTaskDto = this.serviceManager.ProjectTaskService.CreateTaskForProject(projectId, projectTaskForCreationDto, false);
+			var projectTaskDto = await this.serviceManager.ProjectTaskService.CreateTaskForProjectAsync(projectId, projectTaskForCreationDto, false);
 
 			return CreatedAtRoute("GetTaskForProject",  new { projectId, projectTaskDto.Id }, projectTaskDto);
 		}
 
 		[HttpDelete("{id:guid}")]
-		public IActionResult DeleteTaskForProject(Guid projectId, Guid id)
+		public async Task<IActionResult> DeleteTaskForProject(Guid projectId, Guid id)
 		{
-			this.serviceManager.ProjectTaskService.DeleteTaskForProject(projectId, id, false);
+			await this.serviceManager.ProjectTaskService.DeleteTaskForProjectAsync(projectId, id, false);
 
 			return NoContent();
 		}
 
 		[HttpPut("{id:guid}")]
-		public IActionResult UpdateTaskForProject(Guid projectId, Guid id, [FromBody] ProjectTaskForUpdateDto projectTaskForUpdateDto)
+		public async Task<IActionResult> UpdateTaskForProject(Guid projectId, Guid id, [FromBody] ProjectTaskForUpdateDto projectTaskForUpdateDto)
 		{
 			if (projectTaskForUpdateDto is null)
 			{
@@ -76,7 +76,7 @@ namespace project_staff.Presentation.Controllers
 				return UnprocessableEntity(ModelState);
 			}
 
-			serviceManager.ProjectTaskService.UpdateTaskForProject(projectId, id, projectTaskForUpdateDto, false, true);
+			await serviceManager.ProjectTaskService.UpdateTaskForProjectAsync(projectId, id, projectTaskForUpdateDto, false, true);
 
 			return NoContent();
 		}
