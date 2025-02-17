@@ -30,6 +30,9 @@ namespace project_staff.Repository
 		public async Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
 		{
 			var projects = await FindAll(trackChanges)
+				.Where(p =>
+				(!projectParameters.StartDate.HasValue || p.StartDate >= projectParameters.StartDate) && // Filter by start date																		
+				(!projectParameters.EndDate.HasValue || p.EndDate <= projectParameters.EndDate))
 				.OrderBy(p => p.Name)
 				.ToListAsync();
 

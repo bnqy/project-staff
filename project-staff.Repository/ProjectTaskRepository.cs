@@ -37,12 +37,21 @@ namespace project_staff.Repository
 
 		public async Task<PagedList<ProjectTask>> GetTasksAsync(Guid projectId, TaskParameters taskParameters, bool trackChanges)
 		{
-			var projects = await FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges)
+			/*var projectTasks = await FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges)
 				.OrderBy(t => t.Name)
-				.ToListAsync();
+				.ToListAsync();*/
+
+			var query = FindByCondition(t => t.ProjectId.Equals(projectId), trackChanges);
+
+			if (taskParameters.Status.HasValue)
+			{
+				query = query.Where(t => t.Status == taskParameters.Status.Value);
+			}
+
+			var projectTasks = await query.OrderBy(t => t.Name).ToListAsync();
 
 			return PagedList<ProjectTask>
-				.ToPagedList(projects, taskParameters.PageNumber, taskParameters.PageSize);
+				.ToPagedList(projectTasks, taskParameters.PageNumber, taskParameters.PageSize);
 		}
 	}
 }
