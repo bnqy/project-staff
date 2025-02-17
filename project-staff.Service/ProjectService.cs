@@ -32,5 +32,14 @@ namespace project_staff.Service
 				
 			return projectsDto;
 		}
+
+		public ProjectDto GetProject(Guid projectId, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			var projectDto = this.mapper.Map<ProjectDto>(project);
+
+			return projectDto;
+		}
 	}
 }

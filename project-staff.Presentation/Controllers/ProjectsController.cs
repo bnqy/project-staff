@@ -26,5 +26,13 @@ namespace project_staff.Presentation.Controllers
 
 			return Ok(projects);
 		}
+
+		[HttpGet("{id:guid}")]
+		public IActionResult GetProject(Guid id)
+		{
+			var project = this.serviceManager.ProjectService.GetProject(id, false);
+
+			return Ok(project);
+		}
 	}
 }
