@@ -37,6 +37,19 @@ namespace project_staff.Service
 			return projectDto;
 		}
 
+		public void DeleteProject(Guid projectId, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			this.repositoryManager.Project.DeleteProject(project);
+			this.repositoryManager.Save();
+		}
+
 		public IEnumerable<ProjectDto> GetAllProjects(bool trackChanges)
 		{
 			var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);

@@ -48,5 +48,13 @@ namespace project_staff.Presentation.Controllers
 
 			return CreatedAtRoute("ProjectById", new { id = CreatedProjectDto.Id}, CreatedProjectDto);
 		}
+
+		[HttpDelete("{id:guid}")]
+		public IActionResult DeleteProject(Guid id)
+		{
+			this.serviceManager.ProjectService.DeleteProject(id, false);
+
+			return NoContent();
+		}
 	}
 }

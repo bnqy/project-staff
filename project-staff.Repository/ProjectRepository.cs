@@ -20,6 +20,11 @@ namespace project_staff.Repository
 			Create(project);
 		}
 
+		public void DeleteProject(Project project)
+		{
+			Delete(project);
+		}
+
 		public IEnumerable<Project> GetAllProjects(bool trackChanges)
 		{
 			return FindAll(trackChanges)

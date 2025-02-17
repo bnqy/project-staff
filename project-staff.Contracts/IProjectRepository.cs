@@ -13,5 +13,6 @@ namespace project_staff.Contracts
 		IEnumerable<Project> GetAllProjects(bool trackChanges);
 		Project GetProject(Guid projectId, bool trackChanges);
 		void CreateProject(Project project);
+		void DeleteProject(Project project);
 	}
 }
