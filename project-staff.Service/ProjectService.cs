@@ -72,5 +72,18 @@ namespace project_staff.Service
 
 			return projectDto;
 		}
+
+		public void UpdateProject(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			this.mapper.Map(projectForUpdateDto, project);
+			this.repositoryManager.Save();
+		}
 	}
 }

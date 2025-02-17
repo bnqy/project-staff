@@ -14,5 +14,6 @@ namespace project_staff.Service.Contracts
 		ProjectDto GetProject(Guid projectId, bool trackChanges);
 		ProjectDto CreateProject(ProjectForCreationDto projectForCreationDto);
 		void DeleteProject(Guid projectId, bool trackChanges);
+		void UpdateProject(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges);
 	}
 }

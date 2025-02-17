@@ -14,6 +14,7 @@ namespace project_staff
 			CreateMap<ProjectForCreationDto, Project>();
 			CreateMap<ProjectTaskForCreationDto, ProjectTask>();
 			CreateMap<ProjectTaskForUpdateDto, ProjectTask>();
+			CreateMap<ProjectForUpdateDto, Project>();
 		}
 	}
 }

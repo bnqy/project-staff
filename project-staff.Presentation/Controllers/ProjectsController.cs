@@ -56,5 +56,18 @@ namespace project_staff.Presentation.Controllers
 
 			return NoContent();
 		}
+
+		[HttpPut("{id:guid}")]
+		public IActionResult UpdateProject(Guid id, [FromBody] ProjectForUpdateDto projectForUpdateDto)
+		{
+			if (projectForUpdateDto is null)
+			{
+				return BadRequest("ProjectForUpdateDto is null.");
+			}
+
+			this.serviceManager.ProjectService.UpdateProject(id, projectForUpdateDto, true);
+
+			return NoContent();
+		}
 	}
 }
