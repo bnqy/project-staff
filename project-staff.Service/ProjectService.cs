@@ -4,6 +4,7 @@ using project_staff.Entities.Exceptions;
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,13 +51,13 @@ namespace project_staff.Service
 			await this.repositoryManager.SaveAsync();
 		}
 
-		public async Task<IEnumerable<ProjectDto>> GetAllProjectsAsync(bool trackChanges)
+		public async Task<(IEnumerable<ProjectDto> projectDtos, MetaData metaData)> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
 		{
-			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(trackChanges);
+			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(projectParameters, trackChanges);
 				
-			var projectsDto = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
+			var projectsDtos = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
 				
-			return projectsDto;
+			return (projectsDtos, projects.MetaData);
 		}
 
 		public async Task<ProjectDto> GetProjectAsync(Guid projectId, bool trackChanges)

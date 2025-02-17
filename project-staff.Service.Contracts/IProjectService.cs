@@ -1,5 +1,6 @@
 ﻿using project_staff.Entities.Models;
 using project_staff.Shared.DTOs;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace project_staff.Service.Contracts
 {
 	public interface IProjectService
 	{
-		Task<IEnumerable<ProjectDto>> GetAllProjectsAsync(bool trackChanges);
+		Task<(IEnumerable<ProjectDto> projectDtos, MetaData metaData)> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges);
 		Task<ProjectDto> GetProjectAsync(Guid projectId, bool trackChanges);
 		Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto);
 		Task DeleteProjectAsync(Guid projectId, bool trackChanges);

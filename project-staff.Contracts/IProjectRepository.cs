@@ -1,4 +1,5 @@
 ﻿using project_staff.Entities.Models;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace project_staff.Contracts
 {
 	public interface IProjectRepository
 	{
-		Task<IEnumerable<Project>> GetAllProjectsAsync(bool trackChanges);
+		Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges);
 		Task<Project> GetProjectAsync(Guid projectId, bool trackChanges);
 		void CreateProject(Project project);
 		void DeleteProject(Project project);

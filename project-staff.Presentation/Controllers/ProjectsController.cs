@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace project_staff.Presentation.Controllers
@@ -21,11 +23,13 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> GetProjects()
+		public async Task<IActionResult> GetProjects([FromQuery] ProjectParameters projectParameters)
 		{
-			var projects = await this.serviceManager.ProjectService.GetAllProjectsAsync(false);
+			var pagedProjects = await this.serviceManager.ProjectService.GetAllProjectsAsync(projectParameters,false);
 
-			return Ok(projects);
+			Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedProjects.metaData));
+
+			return Ok(pagedProjects.projectDtos);
 		}
 
 		[HttpGet("{id:guid}", Name = "ProjectById")]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using project_staff.Contracts;
 using project_staff.Entities.Models;
+using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -26,11 +27,14 @@ namespace project_staff.Repository
 			Delete(project);
 		}
 
-		public async Task<IEnumerable<Project>> GetAllProjectsAsync(bool trackChanges)
+		public async Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
 		{
-			return await FindAll(trackChanges)
+			var projects = await FindAll(trackChanges)
 				.OrderBy(p => p.Name)
 				.ToListAsync();
+
+			return PagedList<Project>
+				.ToPagedList(projects, projectParameters.PageNumber, projectParameters.PageSize);
 		}
 
 		public async Task<Project> GetProjectAsync(Guid projectId, bool trackChanges)
