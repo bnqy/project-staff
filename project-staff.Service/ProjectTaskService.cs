@@ -44,6 +44,26 @@ namespace project_staff.Service
 			return projectTaskDto;
 		}
 
+		public void DeleteTaskForProject(Guid projectId, Guid id, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			var task = this.repositoryManager.ProjectTask.GetTask(projectId, id, trackChanges);
+
+			if (task is null)
+			{
+				throw new TaskNotFoundException(id);
+			}
+
+			this.repositoryManager.ProjectTask.DeleteTask(task);
+			this.repositoryManager.Save();
+		}
+
 		public ProjectTaskDto GetTask(Guid projectId, Guid id, bool trackChanges)
 		{
 			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);

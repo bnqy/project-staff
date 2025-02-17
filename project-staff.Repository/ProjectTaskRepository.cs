@@ -22,6 +22,11 @@ namespace project_staff.Repository
 			Create(projectTask);
 		}
 
+		public void DeleteTask(ProjectTask projectTask)
+		{
+			Delete(projectTask);
+		}
+
 		public ProjectTask GetTask(Guid projectId, Guid id, bool trackChanges)
 		{
 			return FindByCondition(e => e.ProjectId.Equals(projectId) && e.Id.Equals(id),trackChanges)

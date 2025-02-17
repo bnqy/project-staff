@@ -12,5 +12,6 @@ namespace project_staff.Service.Contracts
 		IEnumerable<ProjectTaskDto> GetTasks(Guid projectId, bool trackChanges);
 		ProjectTaskDto GetTask(Guid projectId, Guid id, bool trackChanges);
 		ProjectTaskDto CreateTaskForProject(Guid projectId, ProjectTaskForCreationDto projectTaskForCreationDto, bool trackChanges);
+		void DeleteTaskForProject(Guid projectId, Guid id, bool trackChanges);
 	}
 }
