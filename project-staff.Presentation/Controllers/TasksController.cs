@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,25 @@ namespace project_staff.Presentation.Controllers
 			return Ok(tasks);
 		}
 
-		[HttpGet("{id:guid}")]
+		[HttpGet("{id:guid}", Name = "GetTaskForProject")]
 		public IActionResult GetTaskForProject(Guid projectId, Guid id)
 		{
 			var task = this.serviceManager.ProjectTaskService.GetTask(projectId, id, false);
 
 			return Ok(task);
+		}
+
+		[HttpPost]
+		public IActionResult CreateTaskForProject(Guid projectId, [FromBody] ProjectTaskForCreationDto projectTaskForCreationDto)
+		{
+			if (projectTaskForCreationDto is null)
+			{
+				return BadRequest("ProjectTaskForCreationDto is null.");
+			}
+
+			var projectTaskDto = this.serviceManager.ProjectTaskService.CreateTaskForProject(projectId, projectTaskForCreationDto, false);
+
+			return CreatedAtRoute("GetTaskForProject",  new { projectId, projectTaskDto.Id }, projectTaskDto);
 		}
 	}
 }

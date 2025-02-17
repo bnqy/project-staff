@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using project_staff.Contracts;
 using project_staff.Entities.Exceptions;
+using project_staff.Entities.Models;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
 using System;
@@ -22,6 +23,25 @@ namespace project_staff.Service
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
 			this.mapper = mapper;
+		}
+
+		public ProjectTaskDto CreateTaskForProject(Guid projectId, ProjectTaskForCreationDto projectTaskForCreationDto, bool trackChanges)
+		{
+			var project = this.repositoryManager.Project.GetProject(projectId, trackChanges);
+
+			if (project is null)
+			{
+				throw new ProjectNotFoundException(projectId);
+			}
+
+			var projectTask = this.mapper.Map<ProjectTask>(projectTaskForCreationDto);
+
+			this.repositoryManager.ProjectTask.CreateTaskForProject(projectId, projectTask);
+			this.repositoryManager.Save();
+
+			var projectTaskDto = this.mapper.Map<ProjectTaskDto>(projectTask);
+
+			return projectTaskDto;
 		}
 
 		public ProjectTaskDto GetTask(Guid projectId, Guid id, bool trackChanges)

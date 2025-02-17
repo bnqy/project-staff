@@ -15,6 +15,13 @@ namespace project_staff.Repository
 		{
 		}
 
+		public void CreateTaskForProject(Guid projectId, ProjectTask projectTask)
+		{
+			projectTask.ProjectId = projectId;
+
+			Create(projectTask);
+		}
+
 		public ProjectTask GetTask(Guid projectId, Guid id, bool trackChanges)
 		{
 			return FindByCondition(e => e.ProjectId.Equals(projectId) && e.Id.Equals(id),trackChanges)

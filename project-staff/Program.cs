@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using project_staff.Contracts;
 using project_staff.Extensions;
@@ -14,6 +15,12 @@ builder.Services.ConfigRepositoryManager();
 builder.Services.ConfigServiceManager();
 builder.Services.ConfigSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
+
+
+builder.Services.Configure<ApiBehaviorOptions>(options => // Enable custom responces.
+{
+	options.SuppressModelStateInvalidFilter = true;
+});
 
 builder.Services.AddControllers(config =>
 {
