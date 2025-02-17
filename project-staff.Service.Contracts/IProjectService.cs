@@ -12,5 +12,6 @@ namespace project_staff.Service.Contracts
 	{
 		IEnumerable<ProjectDto> GetAllProjects(bool trackChanges);
 		ProjectDto GetProject(Guid projectId, bool trackChanges);
+		ProjectDto CreateProject(ProjectForCreationDto projectForCreationDto);
 	}
 }

@@ -25,6 +25,18 @@ namespace project_staff.Service
 			this.mapper = mapper;
 		}
 
+		public ProjectDto CreateProject(ProjectForCreationDto projectForCreationDto)
+		{
+			var project = this.mapper.Map<Project>(projectForCreationDto);
+
+			this.repositoryManager.Project.CreateProject(project);
+			this.repositoryManager.Save();
+
+			var projectDto = this.mapper.Map<ProjectDto>(project);
+
+			return projectDto;
+		}
+
 		public IEnumerable<ProjectDto> GetAllProjects(bool trackChanges)
 		{
 			var projects = this.repositoryManager.Project.GetAllProjects(trackChanges);

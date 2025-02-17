@@ -11,6 +11,7 @@ namespace project_staff
 			CreateMap<Project, ProjectDto>();
 			CreateMap<ProjectTask, ProjectTaskDto>();
 			CreateMap<ApplicationUser, ApplicationUserDto>();
+			CreateMap<ProjectForCreationDto, Project>();
 		}
 	}
 }

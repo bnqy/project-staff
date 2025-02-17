@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using project_staff.Service.Contracts;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,25 @@ namespace project_staff.Presentation.Controllers
 			return Ok(projects);
 		}
 
-		[HttpGet("{id:guid}")]
+		[HttpGet("{id:guid}", Name = "ProjectById")]
 		public IActionResult GetProject(Guid id)
 		{
 			var project = this.serviceManager.ProjectService.GetProject(id, false);
 
 			return Ok(project);
+		}
+
+		[HttpPost]
+		public IActionResult CreateProject([FromBody] ProjectForCreationDto projectForCreationDto)
+		{
+			if (projectForCreationDto is null)
+			{
+				return BadRequest("ProjectForCreationDto is null.");
+			}
+
+			var CreatedProjectDto = this.serviceManager.ProjectService.CreateProject(projectForCreationDto);
+
+			return CreatedAtRoute("ProjectById", new { id = CreatedProjectDto.Id}, CreatedProjectDto);
 		}
 	}
 }

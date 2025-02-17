@@ -15,6 +15,11 @@ namespace project_staff.Repository
 		{
 		}
 
+		public void CreateProject(Project project)
+		{
+			Create(project);
+		}
+
 		public IEnumerable<Project> GetAllProjects(bool trackChanges)
 		{
 			return FindAll(trackChanges)
