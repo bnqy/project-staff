@@ -14,6 +14,7 @@ namespace project_staff.Presentation.Controllers
 {
 	[ApiController]
 	[Route("/api/projects/{projectId}/tasks")]
+	[ResponseCache(CacheProfileName = "120SecondsDuration")]
 	public class TasksController : ControllerBase
 	{
 		private readonly IServiceManager serviceManager;

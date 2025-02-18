@@ -13,6 +13,7 @@ namespace project_staff.Presentation.Controllers
 {
 	[ApiController]
 	[Route("api/projects")]
+	[ResponseCache(CacheProfileName = "120SecondsDuration")]
 	public class ProjectsController : ControllerBase
 	{
 		private readonly IServiceManager serviceManager;

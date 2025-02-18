@@ -65,5 +65,10 @@ namespace project_staff.Extensions
 		{
 			services.AddScoped<IServiceManager, ServiceManager>();
 		}
+
+		public static void ConfigResponseCaching(this IServiceCollection services)
+		{
+			services.AddResponseCaching();
+		}
 	}
 }

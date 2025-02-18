@@ -15,6 +15,7 @@ builder.Services.ConfigRepositoryManager();
 builder.Services.ConfigServiceManager();
 builder.Services.ConfigSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.ConfigResponseCaching();
 
 
 builder.Services.Configure<ApiBehaviorOptions>(options => // Enable custom responces.
@@ -26,6 +27,10 @@ builder.Services.AddControllers(config =>
 {
 	config.RespectBrowserAcceptHeader = true;
 	config.ReturnHttpNotAcceptable = true;
+	config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+	{
+		Duration = 120
+	});
 })
 	.AddXmlDataContractSerializerFormatters()
 	.AddApplicationPart(typeof(project_staff.Presentation.AssemblyReference).Assembly); //To use Controllers in Presentation project.
@@ -61,6 +66,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseCors("CorsPolicy");
+app.UseResponseCaching();
 
 app.UseAuthorization();
 
