@@ -16,5 +16,7 @@ namespace project_staff.Service.Contracts
 		Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto);
 		Task DeleteProjectAsync(Guid projectId, bool trackChanges);
 		Task UpdateProjectAsync(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges);
+		Task<(bool IsSuccess, string ErrorMessage)> AddEmployeeToProjectAsync(Guid projectId, Guid employeeId, bool trackChanges);
+		Task<(bool IsSuccess, string ErrorMessage)> RemoveEmployeeFromProjectAsync(Guid projectId, Guid employeeId, bool trackChanges);
 	}
 }

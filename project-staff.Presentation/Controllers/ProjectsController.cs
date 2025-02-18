@@ -84,5 +84,31 @@ namespace project_staff.Presentation.Controllers
 
 			return NoContent();
 		}
+
+		[HttpPost("{projectId}/employees")]
+		public async Task<IActionResult> AddEmployeeToProject(Guid projectId, [FromBody] Guid employeeId)
+		{
+			var result = await serviceManager.ProjectService.AddEmployeeToProjectAsync(projectId, employeeId, trackChanges: true);
+
+			if (!result.IsSuccess)
+			{
+				return NotFound(result.ErrorMessage);
+			}
+
+			return Ok();
+		}
+
+		[HttpDelete("{projectId}/employees/{employeeId}")]
+		public async Task<IActionResult> RemoveEmployeeFromProject(Guid projectId, Guid employeeId)
+		{
+			var result = await serviceManager.ProjectService.RemoveEmployeeFromProjectAsync(projectId, employeeId, trackChanges: true);
+
+			if (!result.IsSuccess)
+			{
+				return NotFound(result.ErrorMessage);
+			}
+
+			return Ok();
+		}
 	}
 }

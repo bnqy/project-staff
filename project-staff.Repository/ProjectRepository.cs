@@ -44,6 +44,7 @@ namespace project_staff.Repository
 		public async Task<Project> GetProjectAsync(Guid projectId, bool trackChanges)
 		{
 			return await FindByCondition(p => p.Id.Equals(projectId), trackChanges)
+				.Include(p => p.Employees)
 				.SingleOrDefaultAsync();
 		}
 	}

@@ -17,12 +17,12 @@ namespace project_staff.Repository
 
 		public void CreateUser(ApplicationUser user)
 		{
-			throw new NotImplementedException();
+			Create(user);
 		}
 
 		public void DeleteUser(ApplicationUser user)
 		{
-			throw new NotImplementedException();
+			Delete(user);
 		}
 
 		public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync(bool trackChanges)
@@ -32,9 +32,10 @@ namespace project_staff.Repository
 				.ToListAsync();
 		}
 
-		public Task<ApplicationUser> GetUserByIdAsync(string userId, bool trackChanges)
+		public async Task<ApplicationUser> GetUserByIdAsync(Guid userId, bool trackChanges)
 		{
-			throw new NotImplementedException();
+			return await FindByCondition(u => u.Id == userId, trackChanges)
+				.SingleOrDefaultAsync();
 		}
 	}
 }

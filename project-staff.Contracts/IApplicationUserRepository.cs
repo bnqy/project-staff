@@ -10,7 +10,7 @@ namespace project_staff.Contracts
 	public interface IApplicationUserRepository
 	{
 		Task<IEnumerable<ApplicationUser>> GetAllUsersAsync(bool trackChanges);
-		Task<ApplicationUser> GetUserByIdAsync(string userId, bool trackChanges);
+		Task<ApplicationUser> GetUserByIdAsync(Guid userId, bool trackChanges);
 		void CreateUser(ApplicationUser user);
 		void DeleteUser(ApplicationUser user);
 	}

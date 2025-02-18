@@ -26,6 +26,29 @@ namespace project_staff.Service
 			this.mapper = mapper;
 		}
 
+		public async Task<(bool IsSuccess, string ErrorMessage)> AddEmployeeToProjectAsync(Guid projectId, Guid employeeId, bool trackChanges)
+		{
+			var project = await repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+
+			if (project == null)
+				return (false, $"Project with id {projectId} not found.");
+
+			var user = await repositoryManager.ApplicationUser.GetUserByIdAsync(employeeId, trackChanges: false);
+			if (user == null)
+				return (false, $"Employee with id {employeeId} not found.");
+
+			bool alreadyAssigned = project.Employees.Any(e => e.Id == employeeId);
+
+			if (alreadyAssigned)
+				return (false, "Employee is already assigned to this project.");
+
+			project.Employees.Add(user);
+
+			await repositoryManager.SaveAsync();
+
+			return (true, null);
+		}
+
 		public async Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto)
 		{
 			var project = this.mapper.Map<Project>(projectForCreationDto);
@@ -77,6 +100,25 @@ namespace project_staff.Service
 			var projectDto = this.mapper.Map<ProjectDto>(project);
 
 			return projectDto;
+		}
+
+		public async Task<(bool IsSuccess, string ErrorMessage)> RemoveEmployeeFromProjectAsync(Guid projectId, Guid employeeId, bool trackChanges)
+		{
+			var project = await repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			if (project == null)
+				return (false, $"Project with id {projectId} not found.");
+
+
+			var user = project.Employees.FirstOrDefault(e => e.Id == employeeId);
+
+			if (user == null)
+				return (false, $"Employee with id {employeeId} is not assigned to this project.");
+
+			project.Employees.Remove(user);
+
+			await repositoryManager.SaveAsync();
+
+			return (true, null);
 		}
 
 		public async Task UpdateProjectAsync(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
