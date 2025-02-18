@@ -17,7 +17,7 @@ namespace project_staff.Presentation.Controllers
 
 		public AccountController(IServiceManager service) => _service = service;
 
-		[HttpPost]
+		[HttpPost("register")]
 		public async Task<IActionResult> RegisterUser([FromBody] ApplicationUserForRegistrationDto userForRegistration)
 		{
 			var result = await _service.AccountService.RegisterUser(userForRegistration);
@@ -31,6 +31,20 @@ namespace project_staff.Presentation.Controllers
 				return BadRequest(ModelState);
 			}
 			return StatusCode(201);
+		}
+
+		[HttpPost("login")]
+		public async Task<IActionResult> Authenticate([FromBody] ApplicationUserForAuthenticationDto user)
+		{
+			if (!await _service.AccountService.ValidateUser(user))
+
+				return Unauthorized();
+
+			return Ok(new
+			{
+				Token = await _service
+			.AccountService.CreateToken()
+			});
 		}
 	}
 	}

@@ -25,6 +25,7 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "руководитель, менеджер проекта")]
 		public async Task<IActionResult> GetProjects([FromQuery] ProjectParameters projectParameters)
 		{
 			var pagedProjects = await this.serviceManager.ProjectService.GetAllProjectsAsync(projectParameters,false);

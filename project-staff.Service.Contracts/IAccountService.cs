@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace project_staff.Contracts
+namespace project_staff.Service.Contracts
 {
 	public interface IAccountService
 	{
 		Task<IdentityResult> RegisterUser(ApplicationUserForRegistrationDto userForRegistration);
+		Task<bool> ValidateUser(ApplicationUserForAuthenticationDto userForAuth);
+		Task<string> CreateToken();
 	}
 }

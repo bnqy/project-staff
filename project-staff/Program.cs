@@ -21,6 +21,7 @@ builder.Services.ConfigHttpCacheHeaders();
 
 builder.Services.AddAuthentication();
 builder.Services.ConfigIdentity();
+builder.Services.ConfigJWT(builder.Configuration);
 
 
 builder.Services.Configure<ApiBehaviorOptions>(options => // Enable custom responces.
