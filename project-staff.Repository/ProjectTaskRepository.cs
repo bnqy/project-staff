@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using project_staff.Contracts;
 using project_staff.Entities.Models;
+using project_staff.Repository.Extensions;
 using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,9 @@ namespace project_staff.Repository
 				query = query.Where(t => t.Status == taskParameters.Status.Value);
 			}
 
-			var projectTasks = await query.OrderBy(t => t.Name).ToListAsync();
+			var projectTasks = await query
+				.Search(taskParameters.SearchTerm)
+				.OrderBy(t => t.Name).ToListAsync();
 
 			return PagedList<ProjectTask>
 				.ToPagedList(projectTasks, taskParameters.PageNumber, taskParameters.PageSize);

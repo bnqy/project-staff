@@ -9,5 +9,6 @@ namespace project_staff.Shared.RequestFeatures
 	public class TaskParameters : RequestParameters
 	{
 		public project_staff.Entities.Models.TaskStatus? Status { get; set; }
+		public string? SearchTerm { get; set; }
 	}
 }

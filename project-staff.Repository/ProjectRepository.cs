@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using project_staff.Contracts;
 using project_staff.Entities.Models;
+using project_staff.Repository.Extensions;
 using project_staff.Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,8 @@ namespace project_staff.Repository
 		public async Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
 		{
 			var projects = await FindAll(trackChanges)
-				.Where(p =>
-				(!projectParameters.StartDate.HasValue || p.StartDate >= projectParameters.StartDate) && // Filter by start date																		
-				(!projectParameters.EndDate.HasValue || p.EndDate <= projectParameters.EndDate))
+				.FilterProjects(projectParameters)
+				.Search(projectParameters.SearchTerm)
 				.OrderBy(p => p.Name)
 				.ToListAsync();
 
