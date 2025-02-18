@@ -16,6 +16,7 @@ builder.Services.ConfigServiceManager();
 builder.Services.ConfigSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigResponseCaching();
+builder.Services.ConfigHttpCacheHeaders();
 
 
 builder.Services.Configure<ApiBehaviorOptions>(options => // Enable custom responces.
@@ -67,6 +68,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
+app.UseHttpCacheHeaders();
 
 app.UseAuthorization();
 
