@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using project_staff.Contracts;
 using project_staff.Service.Contracts;
+using project_staff.Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace project_staff.Service
 			this.repositoryManager = repositoryManager;
 			this.loggerManager = loggerManager;
 			this.mapper = mapper;
+		}
+
+		public async Task<IEnumerable<ApplicationUserDto>> GetAllUsersAsync(bool trackChanges)
+		{
+			var users = await repositoryManager.ApplicationUser.GetAllUsersAsync(trackChanges);
+			var usersDto = mapper.Map<IEnumerable<ApplicationUserDto>>(users);
+			return usersDto;
 		}
 	}
 }

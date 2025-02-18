@@ -1,4 +1,5 @@
-﻿using System;
+﻿using project_staff.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,9 @@ namespace project_staff.Contracts
 {
 	public interface IApplicationUserRepository
 	{
+		Task<IEnumerable<ApplicationUser>> GetAllUsersAsync(bool trackChanges);
+		Task<ApplicationUser> GetUserByIdAsync(string userId, bool trackChanges);
+		void CreateUser(ApplicationUser user);
+		void DeleteUser(ApplicationUser user);
 	}
 }

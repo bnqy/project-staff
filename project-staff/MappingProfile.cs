@@ -15,6 +15,7 @@ namespace project_staff
 			CreateMap<ProjectTaskForCreationDto, ProjectTask>();
 			CreateMap<ProjectTaskForUpdateDto, ProjectTask>();
 			CreateMap<ProjectForUpdateDto, Project>();
+			CreateMap<ApplicationUser, ApplicationUserDto>().ReverseMap();
 		}
 	}
 }
