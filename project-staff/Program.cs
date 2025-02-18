@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using project_staff.Contracts;
@@ -17,6 +18,9 @@ builder.Services.ConfigSqlContext(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.ConfigResponseCaching();
 builder.Services.ConfigHttpCacheHeaders();
+
+builder.Services.AddAuthentication();
+builder.Services.ConfigIdentity();
 
 
 builder.Services.Configure<ApiBehaviorOptions>(options => // Enable custom responces.
@@ -46,6 +50,12 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+using (var scope = app.Services.CreateScope())
+{
+	var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+	await SeedRolesAsync(roleManager);
+}
+
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigExceptionHandler(logger);
 
@@ -70,8 +80,26 @@ app.UseCors("CorsPolicy");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+
+async Task SeedRolesAsync(RoleManager<IdentityRole<Guid>> roleManager)
+{
+	string[] roles = { "руководитель", "менеджер проекта", "сотрудник" };
+	foreach (var role in roles)
+	{
+		if (!await roleManager.RoleExistsAsync(role))
+		{
+			// Создаем новую роль с типом IdentityRole<Guid>
+			var newRole = new IdentityRole<Guid>(role)
+			{
+				NormalizedName = role.ToUpperInvariant()
+			};
+			await roleManager.CreateAsync(newRole);
+		}
+	}
+}

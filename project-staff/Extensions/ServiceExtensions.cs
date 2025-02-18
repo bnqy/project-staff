@@ -5,6 +5,8 @@ using project_staff.Repository;
 using project_staff.Service.Contracts;
 using project_staff.Service;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Identity;
+using project_staff.Entities.Models;
 
 namespace project_staff.Extensions
 {
@@ -92,6 +94,21 @@ namespace project_staff.Extensions
 				{
 					validationOpt.MustRevalidate = true;
 				});
+		}
+
+		public static void ConfigIdentity(this IServiceCollection services)
+		{
+			var builder = services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(o =>
+			{
+				o.Password.RequireDigit = true;
+				o.Password.RequireLowercase = false;
+				o.Password.RequireUppercase = false;
+				o.Password.RequireNonAlphanumeric = false;
+				o.Password.RequiredLength = 10;
+				o.User.RequireUniqueEmail = true;
+			})
+			.AddEntityFrameworkStores<RepositoryContext>()
+			.AddDefaultTokenProviders();
 		}
 	}
 }

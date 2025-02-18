@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
 using project_staff.Shared.RequestFeatures;
@@ -86,6 +87,7 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpPost("{projectId}/employees")]
+		[Authorize(Roles = "руководитель, менеджер проекта")]
 		public async Task<IActionResult> AddEmployeeToProject(Guid projectId, [FromBody] Guid employeeId)
 		{
 			var result = await serviceManager.ProjectService.AddEmployeeToProjectAsync(projectId, employeeId, trackChanges: true);
@@ -99,6 +101,7 @@ namespace project_staff.Presentation.Controllers
 		}
 
 		[HttpDelete("{projectId}/employees/{employeeId}")]
+		[Authorize(Roles = "руководитель, менеджер проекта")]
 		public async Task<IActionResult> RemoveEmployeeFromProject(Guid projectId, Guid employeeId)
 		{
 			var result = await serviceManager.ProjectService.RemoveEmployeeFromProjectAsync(projectId, employeeId, trackChanges: true);
