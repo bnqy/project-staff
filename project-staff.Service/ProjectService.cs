@@ -53,6 +53,11 @@ namespace project_staff.Service
 
 		public async Task<(IEnumerable<ProjectDto> projectDtos, MetaData metaData)> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
 		{
+			if (!projectParameters.ValidDateRange)
+			{
+				throw new DateRangeBadRequestException();
+			}
+
 			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(projectParameters, trackChanges);
 				
 			var projectsDtos = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
