@@ -8,6 +8,11 @@ namespace project_staff.Shared.RequestFeatures
 {
 	public class ProjectParameters : RequestParameters
 	{
+		public ProjectParameters()
+		{
+			OrderBy = "name";
+		}
+
 		public DateTime? StartDate { get; set; } = DateTime.MinValue;
 		public DateTime? EndDate { get; set; } = DateTime.MaxValue;
 

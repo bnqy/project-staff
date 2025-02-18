@@ -51,7 +51,9 @@ namespace project_staff.Repository
 
 			var projectTasks = await query
 				.Search(taskParameters.SearchTerm)
-				.OrderBy(t => t.Name).ToListAsync();
+				//.OrderBy(t => t.Name)
+				.Sort(taskParameters.OrderBy)
+				.ToListAsync();
 
 			return PagedList<ProjectTask>
 				.ToPagedList(projectTasks, taskParameters.PageNumber, taskParameters.PageSize);

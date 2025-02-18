@@ -33,7 +33,8 @@ namespace project_staff.Repository
 			var projects = await FindAll(trackChanges)
 				.FilterProjects(projectParameters)
 				.Search(projectParameters.SearchTerm)
-				.OrderBy(p => p.Name)
+				//.OrderBy(p => p.Name)
+				.Sort(projectParameters.OrderBy)
 				.ToListAsync();
 
 			return PagedList<Project>
