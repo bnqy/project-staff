@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using NLog;
 using project_staff.Contracts;
 using project_staff.Extensions;
@@ -45,7 +46,32 @@ builder.Services.AddControllers(config =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(s =>
+{
+	s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+	{
+		In = ParameterLocation.Header,
+		Description = "Place to add JWT with Bearer",
+		Name = "Authorization",
+		Type = SecuritySchemeType.ApiKey,
+		Scheme = "Bearer"
+	});
+	s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+			{
+				{
+					new OpenApiSecurityScheme
+					{
+						Reference = new OpenApiReference
+						{
+							Type = ReferenceType.SecurityScheme,
+							Id = "Bearer"
+						},
+						Name = "Bearer",
+					},
+					new List<string>()
+				}
+			});
+});
 
 var app = builder.Build();
 
@@ -63,7 +89,10 @@ app.ConfigExceptionHandler(logger);
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.UseSwaggerUI(s =>
+	{
+		s.SwaggerEndpoint("/swagger/v1/swagger.json", "Project Staff SIBERS API");
+	});
 }
 else
 {
