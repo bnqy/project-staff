@@ -38,6 +38,7 @@ namespace project_staff.Service
 			var projectTask = this.mapper.Map<ProjectTask>(projectTaskForCreationDto);
 
 			projectTask.AuthorId = userId;
+			projectTask.ExecutorId = userId;
 
 
 			this.repositoryManager.ProjectTask.CreateTaskForProject(projectId, projectTask);

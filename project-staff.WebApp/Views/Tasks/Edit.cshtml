@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model project_staff.Shared.DTOs.ProjectTaskForUpdateDto
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/projectcreate.css" />
+}
+
+<div class="container text-center">
+    <h1 class="pb-5 pt-4">Edit Task</h1>
+
+    <form asp-action="Edit" asp-controller="Tasks" asp-route-projectId="@ViewBag.ProjectId" method="post">
+        <input type="hidden" name="taskId" value="@ViewBag.TaskId" />
+        <div class="form-group mb-5" class="control-label">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-5">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="0">ToDo</option>
+                <option value="1">InProgress</option>
+                <option value="2">Done</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-5" class="control-label">
+            <label asp-for="Priority"></label>
+            <input asp-for="Priority" class="form-control"></input>
+            <span asp-validation-for="Priority" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-5">
+            <label asp-for="Comment"></label>
+            <textarea asp-for="Comment" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn create-btn" />
+            <a asp-controller="Tasks" asp-action="Index" asp-route-projectId="@ViewBag.ProjectId" class="btn go-back-button">Cancel</a>
+        </div>
+    </form>
+</div>

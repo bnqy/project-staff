@@ -1,0 +1,59 @@
+﻿h1 {
+    font-size: 48px;
+}
+
+.btn.create-btn {
+    background-color: #495057;
+    color: aliceblue;
+    padding: 0.6rem 5rem;
+    border-radius: 16px;
+}
+
+    .btn.create-btn:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+.text-center {
+    text-align: start !important;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+
+.btn.go-back-button {
+    border: 2px solid #ced4da;
+    border-radius: 16px;
+    padding: 0.5rem 5rem;
+}
+
+    .btn.go-back-button:hover {
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        color: #1971c2;
+    }
+
+    .btn.go-back-button:focus,
+    .btn.go-back-button:active {
+        box-shadow: none;
+        outline: 0;
+    }
+
+.second-part-color {
+    background-color: #f1f3f5;
+}
+
+.status-select {
+    transition: all 0.3s ease;
+}
+
+    .status-select:hover {
+        background-color: #f0f0f0;
+        color: #333;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
+
+    .status-select option {
+        color: #495057;
+    }

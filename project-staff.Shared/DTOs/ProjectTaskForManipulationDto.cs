@@ -14,7 +14,7 @@ namespace project_staff.Shared.DTOs
 
 		//public Guid AuthorId { get; init; }
 
-		public Guid ExecutorId { get; init; }
+		//public Guid ExecutorId { get; init; }
 
 		[Required(ErrorMessage = "Status is required.")]
 		public project_staff.Entities.Models.TaskStatus Status { get; init; }

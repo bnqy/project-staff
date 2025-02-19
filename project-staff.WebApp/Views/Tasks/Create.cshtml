@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model project_staff.Shared.DTOs.ProjectTaskForCreationDto;
+
+@{
+    ViewData["Title"] = "Create Task";
+    Guid projectId = ViewBag.ProjectId;
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/projectcreate.css" />
+}
+<div class="container">
+    <h2 class="pb-5 pt-4">Create New Task</h2>
+
+    <form asp-action="Create" asp-route-projectId="@projectId" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-4">
+            <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+        <div class="form-group mb-4">
+            <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" class="form-control">
+            <option value="0">ToDo</option>
+            <option value="1">InProgress</option>
+            <option value="2">Done</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+        <div class="form-group mb-4">
+            <label asp-for="Priority" class="control-label"></label>
+        <input asp-for="Priority" type="number" class="form-control" />
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+        <div class="form-group mb-4">
+            <label asp-for="Comment" class="control-label"></label>
+        <textarea asp-for="Comment" class="form-control"></textarea>
+        <span asp-validation-for="Comment" class="text-danger"></span>
+    </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn create-btn" />
+            <a asp-controller="Tasks" asp-action="Index" asp-route-projectId="@projectId" class="btn go-back-button">Cancel</a>
+        </div>
+</form>
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

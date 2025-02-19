@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project.WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css?v=@DateTime.Now.Ticks" asp-append-version="true" />
+    <link rel="stylesheet" href="~/project-staff.WebApp.styles.css" asp-append-version="true" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+  <div class="wrapper">
+      <aside id ="sidebar">
+          <div class="d-flex">
+              <button id="toggle-btn" type="button">
+                    <ion-icon class="button-icon" name="apps-outline"></ion-icon>
+              </button>
+                <div class="sidebar-logo">
+                    <a href="#">Project Menu</a>
+                </div>
+          </div>
+          <ul class="sidebar-nav">
+              <li class="sidebar-item">
+                    <form asp-controller="#" asp-action="#" method="get" id="searchForm">
+                        <div class="sidebar-link">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <input class="sidebar-search" type="search" name="searchText" placeholder="Search Project by Title" aria-label="Search by title" id="searchInput" />
+                        </div>
+                    </form>
+              </li>
+                <li class="sidebar-item">
+                    <a asp-controller="#" asp-action="#" class="sidebar-link">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        <span>Assigned tasks</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a asp-controller="Projects" asp-action="Index" class="sidebar-link">
+                        <ion-icon name="list-circle-outline"></ion-icon>
+                        <span>Projects</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a asp-controller="Projects" asp-action="Create" class="sidebar-link">
+                        <ion-icon name="add-outline"></ion-icon>
+                        <span>Add new project</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a asp-controller="#" asp-action="#" class="sidebar-link">
+                        <ion-icon name="bookmark-outline"></ion-icon>
+                        <span>Staff</span>
+                    </a>
+                </li>
+          </ul>
+          <div class="sidebar-footer">
+          <form asp-controller="Account" asp-action="Logout" method="post" style="display: inline;">
+                    <button type="submit" class="sidebar-link" style="background: none; border: none; cursor: pointer;">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <span>Logout</span>
+           </button>
+        </form>
+          </div>
+      </aside>
+        <div class="main p-3">
+            <main role="main" class="text-center">
+                @RenderBody()
+            </main>
+        </div>
+  </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
