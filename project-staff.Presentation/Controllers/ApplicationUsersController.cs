@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using project_staff.Service.Contracts;
 using project_staff.Shared.DTOs;
 using System;
@@ -11,6 +12,7 @@ namespace project_staff.Presentation.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ApplicationUsersController : ControllerBase
 	{
 		private readonly IServiceManager _service;

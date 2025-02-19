@@ -82,6 +82,7 @@ namespace project_staff.Service
 		{
 			var claims = new List<Claim>
 			{
+				new Claim(ClaimTypes.NameIdentifier, _user.Id.ToString()),
 				new Claim(ClaimTypes.Name, _user.UserName)
 			};
 

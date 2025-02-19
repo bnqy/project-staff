@@ -28,9 +28,11 @@ namespace project_staff.Repository
 			Delete(project);
 		}
 
-		public async Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
+		public async Task<PagedList<Project>> GetAllProjectsAsync(
+			Guid userId, ProjectParameters projectParameters, bool trackChanges)
 		{
 			var projects = await FindAll(trackChanges)
+				.Where(p => p.ManagerId == userId)
 				.FilterProjects(projectParameters)
 				.Search(projectParameters.SearchTerm)
 				//.OrderBy(p => p.Name)
@@ -41,9 +43,9 @@ namespace project_staff.Repository
 				.ToPagedList(projects, projectParameters.PageNumber, projectParameters.PageSize);
 		}
 
-		public async Task<Project> GetProjectAsync(Guid projectId, bool trackChanges)
+		public async Task<Project> GetProjectAsync(Guid projectId, Guid userId, bool trackChanges)
 		{
-			return await FindByCondition(p => p.Id.Equals(projectId), trackChanges)
+			return await FindByCondition(p => (p.Id.Equals(projectId) && p.ManagerId == userId), trackChanges)
 				.Include(p => p.Employees)
 				.SingleOrDefaultAsync();
 		}

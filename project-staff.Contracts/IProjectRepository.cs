@@ -11,8 +11,8 @@ namespace project_staff.Contracts
 {
 	public interface IProjectRepository
 	{
-		Task<PagedList<Project>> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges);
-		Task<Project> GetProjectAsync(Guid projectId, bool trackChanges);
+		Task<PagedList<Project>> GetAllProjectsAsync(Guid userId, ProjectParameters projectParameters, bool trackChanges);
+		Task<Project> GetProjectAsync(Guid projectId, Guid userId, bool trackChanges);
 		void CreateProject(Project project);
 		void DeleteProject(Project project);
 	}

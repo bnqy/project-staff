@@ -12,7 +12,7 @@ namespace project_staff.Shared.DTOs
 		[Required(ErrorMessage = "Name is required.")]
 		public string? Name { get; init; }
 
-		public Guid AuthorId { get; init; }
+		//public Guid AuthorId { get; init; }
 
 		public Guid ExecutorId { get; init; }
 

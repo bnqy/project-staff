@@ -23,6 +23,6 @@ namespace project_staff.Shared.DTOs
 		[Required(ErrorMessage = "Priority is required.")]
 		[Range(0, 10, ErrorMessage = "Can not be negative.0-10")]
 		public int Priority { get; init; }
-		public Guid ManagerId { get; init; }
+		//public Guid ManagerId { get; init; }
 	}
 }

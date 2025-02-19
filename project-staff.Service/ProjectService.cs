@@ -26,9 +26,9 @@ namespace project_staff.Service
 			this.mapper = mapper;
 		}
 
-		public async Task<(bool IsSuccess, string ErrorMessage)> AddEmployeeToProjectAsync(Guid projectId, Guid employeeId, bool trackChanges)
+		public async Task<(bool IsSuccess, string ErrorMessage)> AddEmployeeToProjectAsync(Guid userId, Guid projectId, Guid employeeId, bool trackChanges)
 		{
-			var project = await repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			var project = await repositoryManager.Project.GetProjectAsync(projectId, userId, trackChanges);
 
 			if (project == null)
 				return (false, $"Project with id {projectId} not found.");
@@ -49,9 +49,11 @@ namespace project_staff.Service
 			return (true, null);
 		}
 
-		public async Task<ProjectDto> CreateProjectAsync(ProjectForCreationDto projectForCreationDto)
+		public async Task<ProjectDto> CreateProjectAsync(Guid userId, ProjectForCreationDto projectForCreationDto)
 		{
 			var project = this.mapper.Map<Project>(projectForCreationDto);
+
+			project.ManagerId = userId;
 
 			this.repositoryManager.Project.CreateProject(project);
 			await this.repositoryManager.SaveAsync();
@@ -61,9 +63,9 @@ namespace project_staff.Service
 			return projectDto;
 		}
 
-		public async Task DeleteProjectAsync(Guid projectId, bool trackChanges)
+		public async Task DeleteProjectAsync(Guid projectId, Guid userId, bool trackChanges)
 		{
-			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, userId, trackChanges);
 
 			if (project is null)
 			{
@@ -74,23 +76,24 @@ namespace project_staff.Service
 			await this.repositoryManager.SaveAsync();
 		}
 
-		public async Task<(IEnumerable<ProjectDto> projectDtos, MetaData metaData)> GetAllProjectsAsync(ProjectParameters projectParameters, bool trackChanges)
+		public async Task<(IEnumerable<ProjectDto> projectDtos, MetaData metaData)> GetAllProjectsAsync(
+			Guid userId, ProjectParameters projectParameters, bool trackChanges)
 		{
 			if (!projectParameters.ValidDateRange)
 			{
 				throw new DateRangeBadRequestException();
 			}
 
-			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(projectParameters, trackChanges);
+			var projects = await this.repositoryManager.Project.GetAllProjectsAsync(userId, projectParameters, trackChanges);
 				
 			var projectsDtos = this.mapper.Map<IEnumerable<ProjectDto>>(projects);
 				
 			return (projectsDtos, projects.MetaData);
 		}
 
-		public async Task<ProjectDto> GetProjectAsync(Guid projectId, bool trackChanges)
+		public async Task<ProjectDto> GetProjectAsync(Guid projectId, Guid userId, bool trackChanges)
 		{
-			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, userId, trackChanges);
 
 			if (project is null)
 			{
@@ -102,9 +105,9 @@ namespace project_staff.Service
 			return projectDto;
 		}
 
-		public async Task<(bool IsSuccess, string ErrorMessage)> RemoveEmployeeFromProjectAsync(Guid projectId, Guid employeeId, bool trackChanges)
+		public async Task<(bool IsSuccess, string ErrorMessage)> RemoveEmployeeFromProjectAsync(Guid userId, Guid projectId, Guid employeeId, bool trackChanges)
 		{
-			var project = await repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			var project = await repositoryManager.Project.GetProjectAsync(projectId, userId, trackChanges);
 			if (project == null)
 				return (false, $"Project with id {projectId} not found.");
 
@@ -121,9 +124,9 @@ namespace project_staff.Service
 			return (true, null);
 		}
 
-		public async Task UpdateProjectAsync(Guid projectId, ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
+		public async Task UpdateProjectAsync(Guid projectId, Guid userId,ProjectForUpdateDto projectForUpdateDto, bool trackChanges)
 		{
-			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, trackChanges);
+			var project = await this.repositoryManager.Project.GetProjectAsync(projectId, userId, trackChanges);
 
 			if (project is null)
 			{
